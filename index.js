@@ -11,13 +11,13 @@ app.use('/',express.static(__dirname +'/public'))
 io.on('connection',(socket)=>{
     console.log('a user connected',socket.id)
 
-    socket.on('from_client',()=>{
-        console.log('from_client')
+    socket.on('msg_send',(data)=>{
+        console.log(data)
+        //io.emit('msg_rcd',data)
+        socket.emit('msg_rcd',data)
     })
 
-    setInterval(()=>{
-        socket.emit('from_server')
-    },2000)
+  
 })
 server.listen(PORT,()=>{
     console.log('Server started at Port',PORT)
